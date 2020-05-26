@@ -7,13 +7,16 @@ session_start();
     </head>
     <body>
         <form action = "send_otp.php" method = "post">
-            <input type = "submit" name = "send" value = "send">
+          <label for="phoneno">Enter Phone no::</label> <br>
+          <input type="number" name = "phoneno"> <br>
+          <input type = "submit" name = "send" value = "send">
         </form>
     </body>
 </html>
 <?php
-if(isset($_POST['send']))
+if(isset($_POST['send']) && isset($_POST['phoneno']))
 {
+    $phoneno = $_POST['phoneno'];
     $otp = rand(10000,99999);
     echo $otp;
     $_SESSION["otp"] = $otp;
@@ -23,7 +26,7 @@ if(isset($_POST['send']))
         "sender_id" => "FSTSMS",
         "language" => "english",
         "route" => "qt",
-        "numbers" => "7057739912,9011525149",
+        "numbers" => "$phoneno",
         "message" => "28363",                         // message tempalate id 
         "variables" => "{#AA#}",
         "variables_values" => "$otp"
